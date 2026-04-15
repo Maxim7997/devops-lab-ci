@@ -1,0 +1,26 @@
+name: DevOps Lab CI
+
+on:
+  push:
+    branches: [ "main" ]  # Запускати при кожному пуші в main
+
+jobs:
+  test-job:               # Назва нашої роботи
+    runs-on: ubuntu-latest # Операційна система раннера
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Крок 1: Копіюємо код на раннер
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # Крок 2: Встановлюємо Python
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt # Крок 3: Встановлюємо pytest
+
+      - name: Run tests
+        run: |
+          pytest test_example.py # Крок 4: Запускаємо тести
